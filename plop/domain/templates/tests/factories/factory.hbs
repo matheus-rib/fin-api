@@ -1,0 +1,16 @@
+import * as faker from 'faker'
+import { {{ capitalize name }} } from '../../src/domain/{{ name }}s/entities/{{ name }}.entity'
+
+type {{ capitalize name }}sParams = {
+
+}
+
+async function create (params?: {{ capitalize name }}sParams): Promise<{{ capitalize name }}> {
+  const {{ name }} = {{ capitalize name }}.create({
+    ...params,
+  })
+
+  return {{ name }}.save()
+}
+
+export default { create }

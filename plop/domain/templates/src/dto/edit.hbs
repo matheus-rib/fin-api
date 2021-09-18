@@ -1,0 +1,4 @@
+import { OmitType } from '@nestjs/swagger'
+import { {{ capitalize name }} } from '../entities/{{ name }}.entity'
+
+export class Edit{{ capitalize name }}DTO extends OmitType({{ capitalize name }}, ['id', 'createdAt', 'updatedAt']) {}

@@ -1,0 +1,10 @@
+import { Module } from '@nestjs/common'
+import { {{ capitalize name }}sController } from './{{ name }}s.controller'
+import { {{ capitalize name }}sProvider } from './{{ name }}s.provider'
+
+@Module({
+  controllers: [{{ capitalize name }}sController],
+  providers: [{{ capitalize name }}sProvider],
+})
+
+export class {{ capitalize name }}sModule {}

@@ -1,0 +1,31 @@
+import { INestApplication } from '@nestjs/common'
+import * as faker from 'faker'
+import * as request from 'supertest'
+import { createConnection } from 'typeorm'
+import ormConfig from '../../../../../src/config/orm'
+import { {{ capitalize name }} } from '../../../../../src/domain/{{ name }}s/entities/{{ name }}.entity'
+import { {{ capitalize name }}sController } from '../../../../../src/domain/{{ name }}s/{{ name }}s.controller'
+import { {{ capitalize name }}sProvider } from '../../../../../src/domain/{{ name }}s/{{ name }}s.provider'
+import ApiFactory from '../../../../factories/ApiFactory'
+import {{ capitalize name }}sFactory from '../../../../factories/{{ capitalize name }}Factory'
+
+let app: INestApplication
+let connection = null
+
+let {{ name }}: {{ capitalize name }} = null
+
+const resourcePath = '/{{ name }}s'
+
+beforeAll(async () => {
+  connection = await createConnection(ormConfig)
+  const controllers = [{{ capitalize name }}sController]
+  const providers = [{{ capitalize name }}sProvider]
+  app = await ApiFactory.create({ controllers, providers })
+  await app.init()
+
+  {{ name }} = await {{ capitalize name }}sFactory.create()
+})
+
+afterAll(async () => {
+  await connection.close()
+})

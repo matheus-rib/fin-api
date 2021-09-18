@@ -1,0 +1,19 @@
+import { Injectable } from '@nestjs/common'
+import { PaginatedList } from '../../shared/paginatedList/types'
+import { QueryString } from '../../shared/types'
+import { Create{{ capitalize name }}DTO } from './dto/Create{{ capitalize name }}DTO'
+import { Edit{{ capitalize name }}DTO } from './dto/Edit{{ capitalize name }}DTO'
+import { {{ capitalize name }} } from './entities/{{ name }}.entity'
+
+@Injectable()
+export class {{capitalize name}}sProvider {
+  async index (query: QueryString<{{ capitalize name }}>): Promise<PaginatedList<{{ capitalize name }}>> {}
+
+  async show ({{ name }}Id: number): Promise<{{ capitalize name }}> {}
+
+  async store (create{{ capitalize name }}Dto: Create{{ capitalize name }}DTO): Promise<{{ capitalize name }}> {}
+
+  async edit ({{ name }}Id: number, edit{{ capitalize name }}Dto: Edit{{ capitalize name }}DTO): Promise<{{ capitalize name }}> {}
+
+  async delete ({{ name }}Id: number): Promise<void> {}
+}

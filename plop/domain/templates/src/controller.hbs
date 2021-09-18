@@ -1,0 +1,61 @@
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query } from '@nestjs/common'
+import { ApiCreatedResponse, ApiInternalServerErrorResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger'
+import { PaginatedList } from '../../shared/paginatedList/types'
+import { QueryString } from '../../shared/types'
+import { Create{{ capitalize name }}DTO } from './dto/Create{{ capitalize name }}DTO'
+import { Edit{{ capitalize name }}DTO } from './dto/Edit{{ capitalize name }}DTO'
+import { {{ capitalize name }} } from './entities/{{ name }}.entity'
+import { {{ capitalize name }}sProvider } from './{{ name }}s.provider'
+import UnprocessableEntitySchema from '../../shared/responses/schema/UnprocessableEntitySchema'
+import paginatedListSchema from '../../shared/responses/schema/paginatedListSchema'
+import { NotFoundDTO } from '../../shared/responses/dto/NotFoundDTO'
+
+@ApiTags('{{ name }}s')
+@Controller('{{ name }}s')
+export class {{ capitalize name }}sController {
+  constructor (private {{ name }}sProvider: {{ capitalize name }}sProvider) {
+    this.{{ name }}sProvider = {{ name }}sProvider
+  }
+
+  @ApiOkResponse({ description: 'The found records.', schema: paginatedListSchema({{ capitalize name }}) })
+  @ApiOperation({ description: 'Retrieve many {{ capitalize name }}s.' })
+  @Get()
+  async index (@Query() query: QueryString<{{ capitalize name }}>): Promise<PaginatedList<{{ capitalize name }}>> {
+    return this.{{ name }}sProvider.index(query)
+  }
+
+  @ApiOkResponse({ description: 'Retrieve the name by the Id.', type: {{ capitalize name }} })
+  @ApiNotFoundResponse({ description: '{{ capitalize name }} not found.', type: NotFoundDTO })
+  @ApiOperation({ description: 'Retrieve a single {{ capitalize name }}.' })
+  @Get(':{{ name }}Id')
+  async show (@Param('{{ name }}Id') {{ name }}Id: number): Promise<{{ capitalize name }}> {
+    return this.{{ name }}sProvider.show({{ name }}Id)
+  }
+
+  @Post()
+  @ApiCreatedResponse({ description: 'Retrieve the created name', type: {{ capitalize name }} })
+  @ApiUnprocessableEntityResponse({ description: 'Occurred errors trying to create {{ name }}.', schema: UnprocessableEntitySchema() })
+  @ApiOperation({ description: 'Create an {{ capitalize name }}.' })
+  async store (@Body() create{{ capitalize name }}DTO: Create{{ capitalize name }}DTO): Promise<{{ capitalize name }}> {
+    return this.{{ name }}sProvider.store(create{{ capitalize name }}DTO)
+  }
+
+  @Put(':{{ name }}Id')
+  @ApiOkResponse({ description: 'Retrieve the updated name', type: {{ capitalize name }} })
+  @ApiUnprocessableEntityResponse({ description: 'Occurred errors trying to update {{ name }}.', schema: UnprocessableEntitySchema() })
+  @ApiNotFoundResponse({ description: '{{ capitalize name }} not found.', type: NotFoundDTO })
+  @ApiOperation({ description: 'Update an {{ capitalize name }}.' })
+  async edit (@Param('{{ name }}Id') {{ name }}Id: number, @Body() edit{{ capitalize name }}DTO: Edit{{ capitalize name }}DTO): Promise<{{ capitalize name }}> {
+    return this.{{ name }}sProvider.edit({{ name }}Id, edit{{ capitalize name }}DTO)
+  }
+
+  @Delete(':{{ name }}Id')
+  @ApiNoContentResponse({ description: 'No body' })
+  @ApiInternalServerErrorResponse({ description: 'Occurred errors trying to delete used' })
+  @ApiNotFoundResponse({ description: '{{ capitalize name }} not found.', type: NotFoundDTO })
+  @ApiOperation({ description: 'Delete an {{ capitalize name }}.' })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async delete (@Param('{{ name }}Id') {{ name }}Id: number): Promise<void> {
+    return this.{{ name }}sProvider.delete({{ name }}Id)
+  }
+}
