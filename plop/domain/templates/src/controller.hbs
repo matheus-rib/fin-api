@@ -10,7 +10,7 @@ import UnprocessableEntitySchema from '../../shared/responses/schema/Unprocessab
 import paginatedListSchema from '../../shared/responses/schema/paginatedListSchema'
 import { NotFoundDTO } from '../../shared/responses/dto/NotFoundDTO'
 
-@ApiTags('{{ name }}s')
+@ApiTags('{{ capitalize name }}s')
 @Controller('{{ name }}s')
 export class {{ capitalize name }}sController {
   constructor (private {{ name }}sProvider: {{ capitalize name }}sProvider) {
