@@ -25,7 +25,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - fin-api:/var/lib/postgresql/data
+      - fin-api-volume:/var/lib/postgresql/data
 
 volumes:
-  fin-api:
+  fin-api-volume:
