@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsDateString, IsIn, IsInt, IsNotEmpty, IsString } from 'class-validator'
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 import { Model } from '../../../shared/orm/Entity'
+import { Account } from '../../accounts/entities/account.entity'
 
 export enum TransactionCategory {
   PAYMENT = 'payment',
@@ -15,7 +16,7 @@ export enum TransactionType {
 
 @Entity('transactions')
 export class Transaction extends Model {
-  @Column({ nullable: false, type: 'timestamp', default: Date.now })
+  @Column({ nullable: true, type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   @ApiProperty({ title: 'paymentDate', example: '2021-09-16T01:08:37.224Z', description: 'Transaction payment date' })
   @IsDateString()
   @IsNotEmpty()
@@ -50,4 +51,7 @@ export class Transaction extends Model {
   @IsNotEmpty()
   @IsIn(Object.values(TransactionType))
   type: TransactionType
+
+  @ManyToOne(() => Account, account => account.transactions)
+  account: Account
 }
