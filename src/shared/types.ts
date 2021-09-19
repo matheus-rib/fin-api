@@ -1,6 +1,6 @@
 import { FindConditions, ObjectLiteral } from 'typeorm'
 
-type Where<T> = string | ObjectLiteral | FindConditions<T> | FindConditions<Array<T>>
+type Where<T> = ObjectLiteral | FindConditions<T> | FindConditions<Array<T>>
 
 export type QueryString<T> = {
   page?: number
