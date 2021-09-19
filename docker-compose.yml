@@ -27,5 +27,14 @@ services:
     volumes:
       - fin-api-volume:/var/lib/postgresql/data
 
+  keycloak:
+    image: jboss/keycloak:15.0.0
+    env_file: .env
+    ports:
+      - 8081:8080
+    volumes:
+      - keycloak-volume:/opt/jboss/keycloak/standalone/data/
+
 volumes:
   fin-api-volume:
+  keycloak-volume:
