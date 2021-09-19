@@ -13,7 +13,7 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/config/orm/index.ts",
     "docker:test": "docker-compose -p fin-api-test -f docker-compose-test.yml run --rm test",
     "docker:migration:run": "docker-compose -f docker-compose-cli.yml run --rm cli yarn typeorm migration:run",
-    "docker:migration:generate": "docker-compose -f docker-compose-cli.yml run --rm cli yarn typeorm migration:generate -- -n"
+    "docker:migration:generate": "docker-compose -f docker-compose-cli.yml run --rm cli yarn typeorm migration:generate -n"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.6",
