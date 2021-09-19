@@ -3,6 +3,7 @@ import { AccountsController } from './accounts.controller'
 import { AccountsProvider } from './accounts.provider'
 
 @Module({
+  exports: [AccountsProvider],
   controllers: [AccountsController],
   providers: [AccountsProvider],
 })

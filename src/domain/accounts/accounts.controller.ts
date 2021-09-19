@@ -9,7 +9,7 @@ import { AccountsProvider } from './accounts.provider'
 import { CreateAccountDTO } from './dto/CreateAccountDTO'
 import { Account } from './entities/account.entity'
 
-@ApiTags('accounts')
+@ApiTags('Accounts')
 @Controller('accounts')
 export class AccountsController {
   constructor (private accountsProvider: AccountsProvider) {

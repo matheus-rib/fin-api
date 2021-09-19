@@ -1,8 +1,10 @@
 import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common'
+import { EntityManager } from 'typeorm'
 import paginatedList from '../../shared/paginatedList'
 import { PaginatedList } from '../../shared/paginatedList/types'
 import queryPaginationStandardizer from '../../shared/queryPaginationStandardizer'
 import { QueryString } from '../../shared/types'
+import { Transaction, TransactionType } from '../transactions/entities/transaction.entity'
 import { CreateAccountDTO } from './dto/CreateAccountDTO'
 import { Account } from './entities/account.entity'
 
@@ -31,5 +33,11 @@ export class AccountsProvider {
     } catch (e) {
       throw new UnprocessableEntityException(e)
     }
+  }
+
+  async updateAccountBalance (account: Account, transaction: Transaction, em: EntityManager): Promise<Account> {
+    account.balance += transaction.type === TransactionType.CREDIT ? transaction.amount : transaction.amount * -1
+
+    return em.save(account)
   }
 }
